@@ -7,6 +7,8 @@ public class ScoreCanvas : MonoBehaviour
 {
     public static bool ShowScore = false;
     public GameObject ShowScoreCanvas;
+    public GameObject SuccessImage;
+    public GameObject ReplayImage;
     
     void Start()
     {
@@ -18,9 +20,11 @@ public class ScoreCanvas : MonoBehaviour
     void Update()
     {
         if ((GameObject.Find("Sum").GetComponent<sum>().targetTime <= 0) || 
-            ((GameObject.Find("Sum").GetComponent<sum>().success == true)) && (GameObject.Find("Player").GetComponent<PlayerController>().inFinishZone == true))
+            ((GameObject.Find("Sum").GetComponent<sum>().success == true)) && 
+            (GameObject.Find("Player").GetComponent<PlayerController>().inFinishZone == true))
         {
             Pause();
+            
         }
     }
 
@@ -29,16 +33,23 @@ public class ScoreCanvas : MonoBehaviour
     {
         GameObject.Find("Player").GetComponent<PlayerController>().canMove = false;
         ShowScoreCanvas.SetActive(true);
+        ReplayImage.SetActive(true);
         Time.timeScale = 1f;
         ShowScore = true;
-        Invoke("ResetLevel", 3f);
+        if ((GameObject.Find("Sum").GetComponent<sum>().success == true) && 
+            GameObject.Find("Player").GetComponent<PlayerController>().inFinishZone == true)
+        {
+            SuccessImage.SetActive(true);
+            
+        }
 
 
 
     }
-
     public void ResetLevel()
     {
         SceneManager.LoadScene("Level1");
+        Debug.Log("replay pressed");
     }
+
 }

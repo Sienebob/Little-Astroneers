@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPause = false;
-
+    
     public GameObject pauseMenuUI;
+
 
     // Update is called once per frame
     void Update()
@@ -40,6 +42,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPause = true;
+       // GameObject.Find("Player").GetComponent<AudioSource>(Pause);
     }
 
     public void QuitGame()

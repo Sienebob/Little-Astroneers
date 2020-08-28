@@ -69,7 +69,8 @@ public class PlayerController : MonoBehaviour
         }
         else 
         { 
-            inFinishZone = false; 
+            inFinishZone = false;
+            Debug.Log("ei zones");
         }
     }
         
@@ -94,14 +95,15 @@ public class PlayerController : MonoBehaviour
         
         
          float move = Input.GetAxis("Horizontal");
+        
        
 
         myRB.velocity = new Vector2(move * maxSpeed, myRB.velocity.y);
-        if (Input.GetAxisRaw("Horizontal") != 0)
+        if (Input.GetAxisRaw("Horizontal") != 0 && isGrounded)
             {
             transform.localScale = new Vector3(Input.GetAxisRaw("Horizontal"), 1, 1);
             animator.SetBool("Walk_animation", true);
-            GetComponent<AudioSource>().UnPause();           
+            GetComponent<AudioSource>().UnPause();
         }
         else
             {

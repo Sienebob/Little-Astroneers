@@ -26,7 +26,7 @@ public class sum : MonoBehaviour
     void Start()
     {
        // randomisoi halutun kohdesumman ja asettaa sen targetSum itegeriksi
-        targetSum = UnityEngine.Random.Range(4, 4);
+        targetSum = UnityEngine.Random.Range(4, 20);
         // tekee integeristä stringin score
         string score = targetSum.ToString();
         // nyt voidaan kirjoittaa numero tekstinä
@@ -44,7 +44,8 @@ public class sum : MonoBehaviour
     {
         //laskee ajan ja muuttaa floatin stringiksi
         targetTime -= Time.deltaTime;
-                string seconds = (targetTime % 60).ToString("f2");
+
+        string seconds = (targetTime % 60).ToString("f2");
         timerText.text = seconds;
 
         //resettaa scenen 3s päästä kun aika loppuu ja kirjoittaa times up näytölle, lukitsee pelaajan liikkumisen
@@ -52,7 +53,7 @@ public class sum : MonoBehaviour
         {
             
             timerText.text = "Time's up";
-            Invoke("ResetLevel", 3f);
+            //Invoke("ResetLevel", 3f);
             GameObject.Find("Player").GetComponent<PlayerController>().canMove = false;
         
         }
@@ -68,23 +69,29 @@ public class sum : MonoBehaviour
         if (targetSum == summa) 
             { 
             success = true;
-            Debug.Log(success);
+            Debug.Log("score correct");
             }
-        else if ((success == true) && (GameObject.Find("Player").GetComponent<PlayerController>().inFinishZone == true))
+        else 
         {
-            
-            FinalSuccess.text = "Congradulations you finished the mission successfully Little Astroneer!";
-            
+            success = false;
         }
 
-        else if (GameObject.Find("Player").GetComponent<PlayerController>().inFinishZone == false)
+        if ((success == true) && (GameObject.Find("Player").GetComponent<PlayerController>().inFinishZone == true))
         {
-            FinalSuccess.text = "You have to go to the green box at the end!";
+            
+            FinalSuccess.text = "Congradulations you finished the mission successfully Little Astromath!";
+            
+
+        }
+
+        else if ((success == true) && (GameObject.Find("Player").GetComponent<PlayerController>().inFinishZone == false))
+        {
+            FinalSuccess.text = "You have to go to the spaceship at the end!";
         }
 
         else
         {
-            FinalSuccess.text = "You have failed the universe!";
+            FinalSuccess.text = "You have incorrect score!";
         }
     }
 
